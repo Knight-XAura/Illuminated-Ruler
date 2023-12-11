@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddgbqkgwma0mn"]
+[gd_scene load_steps=4 format=3 uid="uid://ddgbqkgwma0mn"]
 
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_jux0m"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h52jx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pl26n"]
 
@@ -8,8 +10,12 @@
 script = ExtResource("1_jux0m")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.5, 2.08165e-12)
+transform = Transform3D(1, -5.2318e-16, 3.02058e-16, 3.02058e-16, 0.866025, 0.5, -5.2318e-16, -0.5, 0.866025, 2.08165e-12, 5, 3)
 current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+mesh = SubResource("CapsuleMesh_h52jx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)

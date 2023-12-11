@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-@onready var camera_3d: Camera3D = $Camera3D
-
 
 var mouse_delta: Vector2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -28,7 +26,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 	
 	mouse_delta *= LOOK_SPEED * delta
-	camera_3d.rotation_degrees.x = clamp(camera_3d.rotation_degrees.x - mouse_delta.y, MIN_LOOK, MAX_LOOK)
 	rotation_degrees.y -= mouse_delta.x
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
