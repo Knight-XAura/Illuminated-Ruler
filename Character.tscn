@@ -10,7 +10,7 @@
 script = ExtResource("1_jux0m")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, -5.2318e-16, 3.02058e-16, 3.02058e-16, 0.866025, 0.5, -5.2318e-16, -0.5, 0.866025, 2.08165e-12, 5, 3)
+transform = Transform3D(1, -5.95416e-16, 2.4663e-16, 2.4663e-16, 0.707107, 0.707107, -5.95416e-16, -0.707107, 0.707107, 2.08165e-12, 8, 3)
 current = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -24,5 +24,5 @@ shape = SubResource("CapsuleShape3D_pl26n")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.5, -0.67)
 light_energy = 16.0
-omni_range = 16.0
+omni_range = 8.0
 omni_attenuation = 0.25
