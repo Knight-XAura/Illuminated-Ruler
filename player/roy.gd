@@ -24,7 +24,6 @@ func _input(event: InputEvent) -> void:
 		ray_query.to = ray_query.from + camera.project_ray_normal(mouse_pos) * ray_length
 		var raycast_result = space.intersect_ray(ray_query)
 		look_at(raycast_result["position"])
-		print(raycast_result)
 
 
 func _physics_process(delta: float) -> void:
