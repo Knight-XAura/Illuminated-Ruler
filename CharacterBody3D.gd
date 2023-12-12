@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
-
+@onready var camera: Camera3D = $Camera3D
+var ray_length: int = 2000
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -12,9 +13,15 @@ const MAX_LOOK: int = 90
 const LOOK_SPEED: int = 10
 
 
-#func _input(event: InputEvent) -> void:
-	#if event is InputEventMouseMotion or event is InputEventScreenDrag:
-		#mouse_pos = viewport.get_mouse_position()
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion or event is InputEventScreenDrag:
+		var mouse_pos = get_viewport().get_mouse_position()
+		var space = get_world_3d().direct_space_state
+		var ray_query = PhysicsRayQueryParameters3D.new()
+		ray_query.from = camera.project_ray_origin(mouse_pos)
+		ray_query.to = ray_query.from + camera.project_ray_normal(mouse_pos) * ray_length
+		var raycast_result = space.intersect_ray(ray_query)
+		look_at(raycast_result["position"])
 
 
 func _physics_process(delta: float) -> void:
