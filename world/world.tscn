@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cav4w67upt8o1"]
+[gd_scene load_steps=5 format=3 uid="uid://cav4w67upt8o1"]
 
-[ext_resource type="PackedScene" uid="uid://ddgbqkgwma0mn" path="res://Character.tscn" id="2_oo0vh"]
+[ext_resource type="Texture2D" uid="uid://c23alhpgtjymn" path="res://world/environment/rock_cave.png" id="1_bcvqx"]
+[ext_resource type="PackedScene" uid="uid://ddgbqkgwma0mn" path="res://player/roy.tscn" id="2_q7bvk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hvd1s"]
 albedo_color = Color(0.12549, 0.12549, 0.12549, 1)
+albedo_texture = ExtResource("1_bcvqx")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ukr3f"]
-size = Vector3(1620, 1, 1510)
+size = Vector3(100, 1, 100)
 
 [node name="World" type="Node3D"]
 
@@ -18,18 +20,13 @@ collision_mask = 7
 [node name="Floor" type="CSGBox3D" parent="StaticBody3D"]
 layers = 7
 material_override = SubResource("StandardMaterial3D_hvd1s")
-size = Vector3(1620, 1, 1510)
+size = Vector3(100, 1, 100)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_ukr3f")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("2_oo0vh")]
+[node name="Roy" parent="." instance=ExtResource("2_q7bvk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, -6.97574e-16, -3.04919e-23, 0, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 20, 2.08165e-12)
-light_energy = 16.0
-spot_range = 30.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -77,3 +74,5 @@ size_flags_vertical = 0
 text = "Time: "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Spawner" type="Node" parent="."]
