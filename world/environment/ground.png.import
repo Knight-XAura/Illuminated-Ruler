@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c23alhpgtjymn"
-path.s3tc="res://.godot/imported/rock_cave.png-b6775d06b697d9eafdc480a71e1ab49e.s3tc.ctex"
+path.s3tc="res://.godot/imported/ground.png-59e5187909382e843aeda2928b5f4852.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://world/environment/rock_cave.png"
-dest_files=["res://.godot/imported/rock_cave.png-b6775d06b697d9eafdc480a71e1ab49e.s3tc.ctex"]
+source_file="res://world/environment/ground.png"
+dest_files=["res://.godot/imported/ground.png-59e5187909382e843aeda2928b5f4852.s3tc.ctex"]
 
 [params]
 
