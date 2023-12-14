@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://world/world.gd" id="1_3bbq7"]
 [ext_resource type="Texture2D" uid="uid://c23alhpgtjymn" path="res://world/environment/ground.png" id="1_bcvqx"]
 [ext_resource type="PackedScene" uid="uid://ddgbqkgwma0mn" path="res://player/roy.tscn" id="2_q7bvk"]
-[ext_resource type="Script" path="res://hud/HUD.gd" id="4_pyhdc"]
+[ext_resource type="Script" path="res://hud/hud.gd" id="4_pyhdc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hvd1s"]
 albedo_color = Color(0.247059, 0.247059, 0.247059, 1)
@@ -17,8 +17,8 @@ script = ExtResource("1_3bbq7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
-collision_layer = 7
-collision_mask = 7
+collision_layer = 15
+collision_mask = 15
 
 [node name="Floor" type="CSGBox3D" parent="StaticBody3D"]
 layers = 7
@@ -30,6 +30,12 @@ shape = SubResource("BoxShape3D_ukr3f")
 
 [node name="Roy" parent="." instance=ExtResource("2_q7bvk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("4_pyhdc")
@@ -53,34 +59,29 @@ layout_mode = 2
 [node name="ExperienceBar" type="ProgressBar" parent="HUD/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-value = 50.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Health" type="Label" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Health:"
-horizontal_alignment = 1
+size_flags_horizontal = 3
+text = "Health: 100/100"
 vertical_alignment = 1
 
 [node name="Level" type="Label" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "LVL: "
+text = "LVL: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Time" type="Label" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 3
 size_flags_vertical = 0
-text = "Time: "
-horizontal_alignment = 1
+text = "Time: 0:00"
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_timer_timeout"]

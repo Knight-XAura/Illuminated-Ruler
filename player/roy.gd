@@ -1,5 +1,11 @@
 extends CharacterBody3D
 
+signal leveled_up
+signal health_changed(current: bool, amount: int)
+signal died
+signal gained_experience
+
+
 @onready var camera: Camera3D = $Camera3D
 var ray_length: int = 100
 var ray_query = PhysicsRayQueryParameters3D.new()
@@ -7,12 +13,17 @@ var ray_query = PhysicsRayQueryParameters3D.new()
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
+var level: int = 1
+var experience: int = 0
+var next_level_experience: int = 10
+var max_health: int = 100
+var current_health: int = 100
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	ray_query.set_collision_mask(1)
 
 
