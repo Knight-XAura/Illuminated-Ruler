@@ -34,6 +34,8 @@ func _input(event: InputEvent) -> void:
 		ray_query.from = camera.project_ray_origin(mouse_pos + Vector2(16, 16))
 		ray_query.to = ray_query.from + camera.project_ray_normal(mouse_pos) * ray_length
 		var raycast_result = space.intersect_ray(ray_query)
+		if raycast_result.is_empty():
+			return
 		look_at(raycast_result["position"])
 
 

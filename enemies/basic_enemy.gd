@@ -17,6 +17,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	velocity = global_position.direction_to(roy.global_position)
-	velocity = velocity * speed
+	look_at(roy.global_position)
+	velocity = global_position.direction_to(roy.global_transform.origin) * speed
 	move_and_slide()

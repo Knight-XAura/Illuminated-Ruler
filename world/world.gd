@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	randomize()
 	var enemy: CharacterBody3D = enemies.pick_random().instantiate()
-	#while(not camera.is_position_in_frustum(enemy.position)):
-	enemy.position = Vector3(randf_range(-100, 100), 1, randf_range(-100, 100)) + roy.position
+	enemy.position = Vector3(randf_range(-100, 100), 1, randf_range(-100, 100)) + roy.global_transform.origin
+	while(camera.is_position_in_frustum(enemy.position)):
+		enemy.position = Vector3(randf_range(-100, 100), 1, randf_range(-100, 100)) + roy.global_transform.origin
 	enemies_container.add_child(enemy, true)
-	print("done")
