@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7wm418re025v"]
+
+[ext_resource type="Script" path="res://enemies/basic_enemy.gd" id="1_tfpdg"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+collision_layer = 12
+collision_mask = 13
+script = ExtResource("1_tfpdg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="NavigationAgent" type="NavigationAgent3D" parent="."]
+path_desired_distance = 1.5
+target_desired_distance = 1.5
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_timer_timeout"]

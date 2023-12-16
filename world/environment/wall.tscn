@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c25l5q3ss28kb"]
+
+[ext_resource type="Texture2D" uid="uid://c23alhpgtjymn" path="res://world/environment/ground.png" id="1_c30wp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hfphq"]
+albedo_color = Color(0.498039, 0.498039, 0.498039, 1)
+albedo_texture = ExtResource("1_c30wp")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gmhm1"]
+size = Vector3(1, 1, 1000)
+
+[node name="StaticBody3D" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.5, 2.08165e-12)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(1, 1, 1000)
+material = SubResource("StandardMaterial3D_hfphq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gmhm1")

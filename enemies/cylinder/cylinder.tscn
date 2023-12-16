@@ -1,16 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://4m8ffl88fx1g"]
+[gd_scene load_steps=6 format=3 uid="uid://4m8ffl88fx1g"]
 
-[ext_resource type="Script" path="res://enemies/cylinder/cylinder.gd" id="1_d5e84"]
+[ext_resource type="PackedScene" uid="uid://b7wm418re025v" path="res://enemies/basic_enemy.tscn" id="1_p6aqi"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_1e8x2"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_c2ut4"]
 
-[node name="Cylinder" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
-collision_layer = 12
-collision_mask = 8
-script = ExtResource("1_d5e84")
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y7x6n"]
+radius = 1.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_1e8x2")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6pci4"]
+resource_local_to_scene = true
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+[sub_resource type="CylinderMesh" id="CylinderMesh_e7pbi"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_6pci4")
+
+[node name="CharacterBody3D" groups=["enemy"] instance=ExtResource("1_p6aqi")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("CylinderShape3D_c2ut4")
+
+[node name="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("CylinderShape3D_y7x6n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
+mesh = SubResource("CylinderMesh_e7pbi")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,13 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bl61rfwuxkk1b"]
+[gd_scene load_steps=6 format=3 uid="uid://bl61rfwuxkk1b"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_1e8x2"]
+[ext_resource type="PackedScene" uid="uid://b7wm418re025v" path="res://enemies/basic_enemy.tscn" id="1_30poo"]
 
-[node name="Sphere" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
-collision_layer = 12
-collision_mask = 8
+[sub_resource type="SphereShape3D" id="SphereShape3D_rpnsr"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_1e8x2")
+[sub_resource type="SphereShape3D" id="SphereShape3D_5ccjn"]
+radius = 1.0
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ej2p"]
+resource_local_to_scene = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_gocjf"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_2ej2p")
+
+[node name="CharacterBody3D" groups=["enemy"] instance=ExtResource("1_30poo")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_rpnsr")
+
+[node name="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("SphereShape3D_5ccjn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
+mesh = SubResource("SphereMesh_gocjf")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

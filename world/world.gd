@@ -7,18 +7,11 @@ const SPHERE = preload("res://enemies/sphere/sphere.tscn")
 @onready var enemies_container: Node3D = $Enemies
 @onready var camera: Camera3D = roy.camera
 var enemies: Array[PackedScene] = [BOX, CYLINDER, SPHERE]
-
-# Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+@onready var spawn_timer: Timer = $SpawnTimer
 
 
 func _on_timer_timeout() -> void:
+	spawn_timer.wait_time -= .005
 	randomize()
 	var enemy: CharacterBody3D = enemies.pick_random().instantiate()
 	enemy.position = Vector3(randf_range(-100, 100), 1, randf_range(-100, 100)) + roy.global_transform.origin
