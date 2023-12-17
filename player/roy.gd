@@ -41,6 +41,7 @@ func _input(event: InputEvent) -> void:
 		if raycast_result.is_empty():
 			return
 		look_at(raycast_result["position"])
+		print(raycast_result["position"])
 
 
 func _physics_process(delta: float) -> void:

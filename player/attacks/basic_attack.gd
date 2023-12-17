@@ -14,3 +14,7 @@ func _on_body_entered(body: Node3D) -> void:
 	queue_free()
 	if body.is_in_group("enemy"):
 		body.current_health -= damage
+
+
+func _on_despawn_timeout() -> void:
+	queue_free()
