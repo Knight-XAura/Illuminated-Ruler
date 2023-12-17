@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddgbqkgwma0mn"]
+[gd_scene load_steps=6 format=3 uid="uid://ddgbqkgwma0mn"]
 
 [ext_resource type="Script" path="res://player/roy.gd" id="1_jux0m"]
 
@@ -9,10 +9,13 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e6l7k"]
 radius = 1.0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_f06lo"]
+radius = 2.0
+
 [node name="Roy" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-collision_layer = 2
-collision_mask = 3
+collision_layer = 6
+collision_mask = 7
 axis_lock_linear_y = true
 axis_lock_angular_y = true
 script = ExtResource("1_jux0m")
@@ -44,11 +47,11 @@ light_energy = 64.0
 spot_range = 30.0
 spot_angle = 30.0
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="EnemyAttack" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyAttack"]
 shape = SubResource("CylinderShape3D_e6l7k")
 
 [node name="AttackTimer" type="Timer" parent="."]
@@ -56,5 +59,13 @@ autostart = true
 
 [node name="Attacks" type="Node3D" parent="."]
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[node name="Pickups" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickups"]
+shape = SubResource("CylinderShape3D_f06lo")
+
+[connection signal="body_entered" from="EnemyAttack" to="." method="_on_area_3d_body_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="area_entered" from="Pickups" to="." method="_on_pickups_area_entered"]

@@ -35,7 +35,7 @@ func _on_roy_leveled_up(new_level: int) -> void:
 
 
 func _on_roy_gained_experience(gained_exp: int) -> void:
-	experience_bar.value += gained_exp
+	experience_bar.value = gained_exp
 
 
 func _on_roy_died() -> void:

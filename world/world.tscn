@@ -1,35 +1,26 @@
-[gd_scene load_steps=14 format=3 uid="uid://cav4w67upt8o1"]
+[gd_scene load_steps=11 format=3 uid="uid://cav4w67upt8o1"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_3bbq7"]
-[ext_resource type="Texture2D" uid="uid://c23alhpgtjymn" path="res://world/environment/ground.png" id="1_bcvqx"]
 [ext_resource type="PackedScene" uid="uid://ddgbqkgwma0mn" path="res://player/roy.tscn" id="2_q7bvk"]
 [ext_resource type="Script" path="res://hud/hud.gd" id="4_pyhdc"]
 [ext_resource type="PackedScene" uid="uid://c25l5q3ss28kb" path="res://world/environment/wall.tscn" id="5_f8mva"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hvd1s"]
-albedo_color = Color(0.247059, 0.247059, 0.247059, 1)
-albedo_texture = ExtResource("1_bcvqx")
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_ukr3f"]
 size = Vector3(1000, 1, 1000)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3vdi"]
-albedo_color = Color(0.121569, 0.121569, 0.121569, 1)
-albedo_texture = ExtResource("1_bcvqx")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_6u05g"]
-material = SubResource("StandardMaterial3D_d3vdi")
-size = Vector2(1100, 1100)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_qknkt"]
-size = Vector3(1100, 1, 1100)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_kmwmw"]
 vertices = PackedVector3Array(-499.5, 0.5, -499.5, -499.5, 0.5, 499.5, 499.5, 0.5, 499.5, 499.5, 0.5, -499.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_unhyo"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_xwh0f"]
+material = SubResource("StandardMaterial3D_unhyo")
 size = Vector2(1000, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qknkt"]
+size = Vector3(1100, 1, 1100)
 
 [sub_resource type="LabelSettings" id="LabelSettings_tvuy0"]
 font_size = 96
@@ -59,35 +50,30 @@ transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 collision_mask = 0
 
-[node name="Floor" type="CSGBox3D" parent="Floor"]
-layers = 7
-material_override = SubResource("StandardMaterial3D_hvd1s")
-size = Vector3(1000, 1, 1000)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_ukr3f")
 
-[node name="OOB" type="StaticBody3D" parent="."]
+[node name="NavigationRegion" type="NavigationRegion3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+navigation_mesh = SubResource("NavigationMesh_kmwmw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="OOB"]
-mesh = SubResource("PlaneMesh_6u05g")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/NavigationRegion"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.5, 2.08165e-12)
+mesh = SubResource("PlaneMesh_xwh0f")
+
+[node name="OOB" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -5, 2.08165e-12)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OOB"]
 shape = SubResource("BoxShape3D_qknkt")
 
 [node name="Roy" parent="." instance=ExtResource("2_q7bvk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+collision_layer = 3
+collision_mask = 2
+up_direction = Vector3(4.16329e-12, 1, 4.16329e-12)
 
 [node name="Enemies" type="Node3D" parent="."]
-
-[node name="NavigationRegion" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -5, 2.08165e-12)
-navigation_mesh = SubResource("NavigationMesh_kmwmw")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-mesh = SubResource("PlaneMesh_xwh0f")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true

@@ -6,8 +6,18 @@ class_name BasicEnemy
 	set(value):
 		current_health = value
 		if current_health <= 0:
+			if sucked_blood:
+				var health_drop_node = health_drop.instantiate()
+				health_drop_node.global_position = global_position + Vector3(-1, 0, -1)
+				add_sibling(health_drop_node, true)
+			var experience_drop_node = experience_drop.instantiate()
+			experience_drop_node.global_position = global_position + Vector3(1, 0, 1)
+			add_sibling(experience_drop_node, true)
 			hide()
 			queue_free()
+
+var health_drop: PackedScene = preload("res://drops/health.tscn")
+var experience_drop: PackedScene = preload("res://drops/experience.tscn")
 @export var damage: int = 1
 @export var experience: int = 1
 var sucked_blood: bool

@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6g8kogkkfauo"]
+
+[ext_resource type="Script" path="res://drops/health.gd" id="1_k1y1d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2115"]
+albedo_color = Color(0.498039, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y4e0e"]
+material = SubResource("StandardMaterial3D_u2115")
+radius = 0.125
+height = 0.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yjdha"]
+radius = 0.125
+height = 0.5
+
+[node name="Health" type="Area3D"]
+transform = Transform3D(-4.37114e-08, -1, 3.48787e-16, 1, -4.37114e-08, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_k1y1d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_y4e0e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_yjdha")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -13,13 +13,21 @@ var ray_query = PhysicsRayQueryParameters3D.new()
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var attack_scene = preload("res://player/attacks/basic_attack.tscn")
 
-var level: int = 1
-var experience: int = 0
-var next_level_experience: int = 10
+var level: int = 1:
+	set(value):
+		level = value
+		leveled_up.emit(level)
+var experience: int = 0:
+	set(value):
+		experience = value
+		gained_experience.emit(experience)
+var next_level_experience: int = 100
 var max_health: int = 100
 var current_health: int = 100:
 	set(value):
 		current_health = value
+		if current_health < 0:
+			current_health = 0
 		health_changed.emit(current_health, max_health)
 		if current_health <= 0:
 			died.emit()
@@ -40,8 +48,7 @@ func _input(event: InputEvent) -> void:
 		var raycast_result = space.intersect_ray(ray_query)
 		if raycast_result.is_empty():
 			return
-		look_at(raycast_result["position"])
-		print(raycast_result["position"])
+		look_at(Vector3(raycast_result["position"].x, 0, raycast_result["position"].z))
 
 
 func _physics_process(delta: float) -> void:
@@ -60,6 +67,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	camera.global_position.x = position.x
 	camera.global_position.z = position.z
+	
+	
+	if experience >= next_level_experience:
+		level += 1
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
@@ -72,3 +83,10 @@ func _on_attack_timer_timeout() -> void:
 	attacks.add_child(attack, true)
 
 	
+
+
+func _on_pickups_area_entered(area: Area3D) -> void:
+	if area.name == "Health":
+		current_health += area.health
+	if area.name == "Experience":
+		experience += area.experience

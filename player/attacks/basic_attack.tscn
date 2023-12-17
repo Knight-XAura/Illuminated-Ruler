@@ -7,6 +7,7 @@ radius = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rrxq0"]
 resource_local_to_scene = true
+albedo_color = Color(1, 0.372549, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_gw4y8"]
 resource_local_to_scene = true
@@ -14,10 +15,11 @@ material = SubResource("StandardMaterial3D_rrxq0")
 radius = 0.25
 height = 0.5
 
-[node name="Area3D" type="Area3D"]
+[node name="basic_attack" type="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-collision_layer = 8
-collision_mask = 8
+top_level = true
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("1_gdbb6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
